@@ -474,7 +474,7 @@ def main(args):
     train_test_split = args.train_test_split
     
     #sim_url = args.outdir + 'polarbear_'+ train_test_split +'_'+ dispersion + '_'+ str(nlayer)+ 'l_lr'+ str(learning_rate_y)+'_'+ str(learning_rate_x)+'_'+ str(learning_rate_xy)+'_'+ str(learning_rate_yx)+'_dropout'+ str(dropout_rate)+'_ndim'+str(embed_dim_x)+'_'+str(embed_dim_y)+'_batch'+ str(batch_size)+ '_'+ trans_ver + '_improvement'+str(patience)+'_nwarmup_'+str(nepoch_warmup_x)+'_'+str(nepoch_warmup_y)+'_klstart'+str(nepoch_klstart_x)+'_'+ str(nepoch_klstart_y)+'_klweight'+str(kl_weight)+'_hiddenfrac'+str(hidden_frac)
-    sim_url = args.outdir + 'first_train'
+    sim_url = args.outdir + '_second_train'
     print(sim_url)
     train_polarbear_model(args.outdir, sim_url, train_test_split, args.path_x, args.path_y, args.path_x_single, args.path_y_single, dispersion, embed_dim_x, embed_dim_y, nlayer, dropout_rate, learning_rate_x, learning_rate_y, learning_rate_xy, learning_rate_yx, trans_ver, hidden_frac, kl_weight, patience, nepoch_warmup_x, nepoch_warmup_y, nepoch_klstart_x, nepoch_klstart_y, batch_size, args.train, args.evaluate, args.predict)
 
