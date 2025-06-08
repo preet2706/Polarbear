@@ -283,8 +283,20 @@ def train_polarbear_model(outdir, sim_url, train_test_split, path_x, path_y, pat
     for chri in chr_list.keys():
         chr_list_range += chr_list[chri]
     '''
-    chr_annot = pd.read_csv('data/Lymphoma_ATAC_chr.csv', sep=':', header=None)
-    chr_annot.columns = ['chr','pos']
+    # chr_annot = pd.read_csv('data/bmmc_ATAC_chr.csv', sep=':', header=None)
+    # chr_annot.columns = ['chr','pos']
+    # chr_list = {}
+    # for chri in chr_annot['chr'].unique():
+    #     if chri not in ['chrX','chrY']:
+    #         chr_list[int(chri[3:])] = [i for i, x in enumerate(chr_annot['chr']) if x == chri];
+
+    # chr_list_range = []
+    # for chri in chr_list.keys():
+    #     chr_list_range += chr_list[chri]
+
+    chr_annot = pd.read_csv('/workspace/Polarbear/data/bmmc_ATAC_chr.csv', header=None, names=['full'])
+    chr_annot[['chr', 'pos']] = chr_annot['full'].str.split('-', n=1, expand=True)
+    chr_annot = chr_annot.drop('full', axis=1)
     chr_list = {}
     for chri in chr_annot['chr'].unique():
         if chri not in ['chrX','chrY']:
@@ -305,7 +317,7 @@ def train_polarbear_model(outdir, sim_url, train_test_split, path_x, path_y, pat
     data_rna_barcode = pd.read_csv(path_x.split('.mtx')[0]+ '_barcodes.tsv', delimiter='\t')
     barcode_list = data_rna_barcode['index'].to_list()
     '''
-    data_rna_barcode = pd.read_csv('data/lym_RNA_barcodes.csv', sep=',', header=0)
+    data_rna_barcode = pd.read_csv('data/bmmc_RNA_barcodes.csv', sep=',', header=0)
     barcode_list = data_rna_barcode['index'].to_list()
     if train_test_split == 'babel':
         # use the exact train/val/test split in BABEL
@@ -474,7 +486,7 @@ def main(args):
     train_test_split = args.train_test_split
     
     #sim_url = args.outdir + 'polarbear_'+ train_test_split +'_'+ dispersion + '_'+ str(nlayer)+ 'l_lr'+ str(learning_rate_y)+'_'+ str(learning_rate_x)+'_'+ str(learning_rate_xy)+'_'+ str(learning_rate_yx)+'_dropout'+ str(dropout_rate)+'_ndim'+str(embed_dim_x)+'_'+str(embed_dim_y)+'_batch'+ str(batch_size)+ '_'+ trans_ver + '_improvement'+str(patience)+'_nwarmup_'+str(nepoch_warmup_x)+'_'+str(nepoch_warmup_y)+'_klstart'+str(nepoch_klstart_x)+'_'+ str(nepoch_klstart_y)+'_klweight'+str(kl_weight)+'_hiddenfrac'+str(hidden_frac)
-    sim_url = args.outdir + '_second_train'
+    sim_url = args.outdir + '_bmmc_train'
     print(sim_url)
     train_polarbear_model(args.outdir, sim_url, train_test_split, args.path_x, args.path_y, args.path_x_single, args.path_y_single, dispersion, embed_dim_x, embed_dim_y, nlayer, dropout_rate, learning_rate_x, learning_rate_y, learning_rate_xy, learning_rate_yx, trans_ver, hidden_frac, kl_weight, patience, nepoch_warmup_x, nepoch_warmup_y, nepoch_klstart_x, nepoch_klstart_y, batch_size, args.train, args.evaluate, args.predict)
 

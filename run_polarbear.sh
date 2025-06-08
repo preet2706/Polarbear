@@ -17,13 +17,13 @@ else
 fi
 
 ## train the model
-python bin/run_polarbear.py --path_x data/lymphoma_RNA.mtx --path_y data/lymphoma_ATAC.mtx --outdir output --patience 45 --path_x_single $path_x_single --path_y_single $path_y_single --train_test_split ${train_test_split} --train train
+python bin/run_polarbear.py --path_x data/bmmc_RNA.mtx --path_y data/bmmc_ATAC.mtx --outdir output --patience 45 --path_x_single $path_x_single --path_y_single $path_y_single --train_test_split ${train_test_split} --train train
 
 ## evaluate
 #python ${cur_dir}/bin/run_polarbear.py --path_x ${data_dir}/adultbrainfull50_rna_outer_snareseq.mtx --path_y ${data_dir}/adultbrainfull50_atac_outer_snareseq.mtx --outdir ${cur_dir}/output_${semi_version}_gpu/ --patience 45 --path_x_single $path_x_single --path_y_single $path_y_single --train_test_split ${train_test_split} --train predict  --evaluate evaluate
 
 ## output predictions on test set
-python bin/run_polarbear.py --path_x data/lymphoma_RNA.mtx --path_y data/lymphoma_ATAC.mtx --outdir output --patience 45 --path_x_single $path_x_single --path_y_single $path_y_single --train_test_split ${train_test_split} --train predict --predict predict
+python bin/run_polarbear.py --path_x data/bmmc_RNA.mtx --path_y data/bmmc_ATAC.mtx --outdir output --patience 45 --path_x_single $path_x_single --path_y_single $path_y_single --train_test_split ${train_test_split} --train predict --predict predict
 
 ## plot pairwise comparison
 #mkdir -p ${cur_dir}/result/
